@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './Functions.js';
-import Produtos from './views/Products'
+
 //  
 ReactDOM.render(
   <React.StrictMode>

@@ -1,21 +1,3 @@
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-} */
-
- /* body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.7) 0%, rgba(255, 255, 255, 0.7) 90%), url("../assets/horror-movie-background-png.jpg") repeat 0 0;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  color: seashell;
-}  */
-
 #logo {
   padding: 0;
   border-radius: 59px;
@@ -56,6 +38,7 @@
   width: 100%;
   height: 100%;
   padding: 0%;
+  margin-top: 30px;
 }
 
 .box_products {
@@ -65,7 +48,6 @@
   margin: 2px;
   padding: 0px;
   text-align: center;
-  background-color: yellow;
 }
 
 .box_products img {
@@ -75,42 +57,13 @@
   cursor: zoom-in;
 }
 
-/* .old_price {
-  text-decoration: line-through;
-  color: red;
-} */
-
-/* #footer {
-  text-align: center;
+.box_products img:hover{
+  width: 280px;
 }
 
-#payment_methods {
-  color: red;
-} */
-
-/* main {
-  display: inline-block;
-  width: 100%;
-  height: 100%;
+.paragrafo{
+  margin: 0px;
 }
-
-main h1, p {
-  border: 0px;
-  margin: 0px;
-  padding: 0px;
-} */
-
-/* .banner {
-  display: inline-block;
-  font-family: 'Grenze Gotisch', cursive;
-  color: rgb(204, 219, 195);
-  width: 36%;
-  text-align: center;
-  padding: 0px;
-  margin: 0px;
-  border: 0px;
-} */
-
 
 .banner img {
   width: 70%;
@@ -122,39 +75,8 @@ main h1, p {
 
 .table_contact {
   color: whitesmoke;
-} */
+} 
 
-.footer{
-
-  color:white;
-  
-  .links{
-    ul {list-style-type: none;}
-    li a{
-      color: white;
-      transition: color .2s;
-      &:hover{
-        text-decoration:none;
-        color:#4180CB;
-        }
-    }
-  }  
-  .about-company{
-    i{font-size: 25px;}
-    a{
-      color:white;
-      transition: color .2s;
-      &:hover{color:#4180CB}
-    }
-  } 
-  .location{
-    i{font-size: 18px;}
-  }
-  .copyright p{border-top:1px solid rgba(255,255,255,.1);} 
-}
-
-
-.comments p{
-  margin: 0;
-  padding: 0;
+.link_footer{
+  list-style: none;
 }

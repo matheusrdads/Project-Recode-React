@@ -1,6 +1,6 @@
 import React from 'react';
-import img2 from '../../assets/img2.jpg';
-import img3 from '../../assets/img3.jpg';
+import krisiun from '../Products/assets/krisiun.jpg';
+import aerosmith2 from '../Products/assets/aerosmith2.jpg';
 
 export default function Home() {
     return (
@@ -12,13 +12,13 @@ export default function Home() {
 
                 <div className="col-sm-6">
                     <h1>You won't hear anything like that in the next decade</h1>
-                    <img src={img2} style={{ width: "70%" }} />
+                    <img alt="" src={krisiun} style={{ width: "70%" }} />
 
 
                 </div>
                 <div class="col-sm-6">
                     <h1>don't forget that brutes also love</h1>
-                    <img src={img3} style={{ width: "70%" }} />
+                    <img alt="" src={aerosmith2} style={{ width: "70%" }} />
 
                 </div>
             </div>

@@ -1,153 +1,100 @@
-import React, { Component } from 'react';
-// import '../../Functions.js';
-// import Routes from '../../routes';
-// import image from '../../assets/image.jpg';
+import React, { useState, useEffect } from 'react';
+import mail from '../Products/assets/mail.png';
+import whatsapp from '../Products/assets/whatsapp.png';
 
+export default function Contact() {
 
-export default class Contact extends Component {
-    constructor(props) {
-        super(props);
-        this.state = ({
-            db: []
-        });
-        this.exibirComments = this.exibirComments.bind(this);
+    const [comentarios, setComentarios] = useState([]);
+
+    const controleEnvio = (evento) => {
+        evento.preventDefault();
+        fetch("http://localhost/php/full_stack_music/src/api_comments/products.php", { method: "POST", body: new FormData(evento.target) });
+        getComentario();
+        window.alert("Comentário enviado com secesso !")
     }
 
-    componentDidMount() {
-        this.exibirComments();
+    function getComentario() {
+        async function showComentarios() {
+            const url = "http://localhost/php/full_stack_music/src/api_comments/products.php";
+            const resposta = await fetch(url);
+            const resultado = await resposta.json();
+            setComentarios(resultado);
+        }
+        showComentarios();
     }
 
-    exibirComments() {
-        let url = 'http://localhost/php/full_stack_music/src/api/index.php?table=comments';
+    useEffect(() => { getComentario() }, []);
 
-        fetch(url)
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({
-                    db: responseJson
-                });
-                console.log(responseJson);
-            })
-    }
+    useEffect(() => { }, [comentarios]);
 
-    render() {
-        return (
-            <div class="container-fluid">
+ 
+    return (
+        <div className="container-fluid">
 
-                <h3 className="text-white">Products</h3>
+            <h3 className="text-white">Products</h3>
 
-                <h2>Contacts</h2>
-                 <hr />
-                 <table class="table_contact text-dark">
-                     <tr>
-                         <td >
-                             <img src=".././assets/mail.png" alt="" />
-                             <font>contact@fullstackmusic.com</font>
-                         </td>
+            <h2>Contacts</h2>
+            <hr />
+            <div class="container">
 
-                         <td >
-                             <img src=".././assets/whatsapp.png" alt="" />
-                             <font>+1 876-999-9999</font>
-                         </td>
-                     </tr>
-                 </table>
+                <div class="row container-fluid">
 
-                 <form method="post" action="" />
-                  Nome:<br />
-                 <input type="text" name="nome"  class="form-control" type="text"/><br />
-                  Mensagem:<br />
-                 <input type="text" name="msg"  class="form-control" type="text"/><br />
+                    <div class="col-6 ">
+                        <img alt="" src={mail} />
+                        <font>contact@fullstackmusic.com</font>
 
-                 <input type="submit" name="submit" value="enviar" /><br />
-
-                 <form />
-
-                <div className="text-white comments">
-                    <div class="col-sm-9">
-                        
-                            {this.state.db.map(row => <div className="text-dark" key={row.id}>
-                                <p className="text-dark">{row.nome}</p>
-                                <p className="text-danger">{row.msg} </p>
-                                <p className="text-dark">{row.date}</p>
-                                <hr/>
-                            </div>)}
-                        
                     </div>
+                    <div class="col-6">
+                        <img alt="" src={whatsapp} />
+                        <font>+1 876-999-9999</font>
+                    </div>
+
                 </div>
             </div>
 
-        );
-    }
+
+            <div >
+                <form method="post" onSubmit={controleEnvio} >
+                    <label>Nome</label>
+                    <input type="text" id="nome" name="nome" className="form-control" /> <br />
+
+                    <label>Mensagem</label>
+                    <input type="text" id="msg" name="msg" className="form-control" /> <br />
+
+                    <button type="submit" >Enviar </button>
+                </form>
+            </div> <br />
+
+
+            <div className="text-white comments">
+                <div className="col-sm-9">
+
+                    {comentarios && comentarios.map(row => {
+                        console.log(comentarios)
+                        if (row.productname === null) { 
+                            return (
+                                <div className="text-dark" key={row.id}>  Usuário: {row.nome} <br />
+                                                                    Mensagem: {row.msg}  <br />
+                                                                    Data: {row.date} <hr />
+
+                        </div>
+                        )
+
+                        } else{
+                            return (
+                                <div className="text-dark" key={row.id}>  Usuário: {row.nome} <br />
+                                                                    Mensagem: {row.msg}  <br />
+                                                                    Produto: {row.productname} <br />
+                                                                    Data: {row.date} <hr />
+
+                        </div>
+                            )
+                        }
+                        })
+                    }
+                </div>
+            </div>
+        </div>
+
+    );
 }
-
-
-// import React, { Component } from 'react';
-
-// export default class Contact extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = ({
-//             db: []
-//         });
-//         this.exibirComments = this.exibirComments.bind(this);
-//     }
-//     componentDidMout() {
-//         this.exibirComments();
-//     }
-
-//     exibirComments() {
-//         let url = 'http://localhost/php/full_stack_music/src/api/index.php?table=comments';
-
-//         fetch(url)
-//             .then((response) => response.json())
-//             .then((responseJson) => {
-//                 this.setState({
-//                     db: responseJson
-//                 });
-//                 console.log(responseJson);
-//             })
-//     }
-
-//     render() {
-//         return (
-//             <div>
-//                 <h2>Contacts</h2>
-//                 <hr />
-//                 <table class="table_contact text-dark">
-//                     <tr>
-//                         <td >
-//                             <img src=".././assets/mail.png" alt="" />
-//                             <font>contact@fullstackmusic.com</font>
-//                         </td>
-
-//                         <td >
-//                             <img src=".././assets/whatsapp.png" alt="" />
-//                             <font>+1 876-999-9999</font>
-//                         </td>
-//                     </tr>
-//                 </table>
-
-//                 <form method="post" action="" />
-//                  Nome:<br />
-//                 <input type="text" name="nome"  /><br />
-//                  Mensagem:<br />
-//                 <input type="text" name="msg"  /><br />
-
-//                 <input type="submit" name="submit" value="enviar" /><br />
-
-//                 <form />
-
-
-//                 <div>
-//                 {this.state.db.map(row => <div key={row.id}>
-//                         <p>{row.nome}</p>
-//                         <p>{row.msg}</p>
-//                         <p>{row.date}</p>
-//                     </div>)}
-//                 </div>
-
-//             </div>
-
-//         );
-//     }
-// }

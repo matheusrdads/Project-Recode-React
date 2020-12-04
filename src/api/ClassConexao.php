@@ -9,11 +9,6 @@ abstract class ClassConexao{
         }catch (PDOException $Erro){
             return $Erro->getMessage();
 
-            
-
         }
     }   
 }
-
-
-?>

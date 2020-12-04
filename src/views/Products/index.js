@@ -1,121 +1,80 @@
-import React, { Component } from 'react';
-// import '../../Functions.js';
-// import Routes from '../../routes';
-// import image from '../../assets/image.jpg';
+import React, { useState, useEffect } from 'react';
 
+export default function Products() {
+    
+    const [produtos, setProdutos] = useState([]);
+    const [categoria, setCategoria] = useState([]);
 
-export default class Products extends Component {
-    constructor(props) {
-        super(props);
-        this.state = ({
-            db: []
-        });
-        this.exibirProducts = this.exibirProducts.bind(this);
+    useEffect(() => {
+        async function showProdutos() {
+            const url = "http://localhost/php/full_stack_music/src/api/index.php?table=products";
+            const resposta = await fetch(url);
+            const resultado = await resposta.json();
+            setProdutos(resultado);
+        }
+        showProdutos();
+    });
+
+    function selectCategoria(e) {
+        setCategoria("");
+        setCategoria(e.target.value)
+        return (console.log(categoria))
+
     }
 
-    componentDidMount() {
-        this.exibirProducts();
-    }
+    return (
+        <div className="container-fluid">
 
-    exibirProducts() {
-        let url = 'http://localhost/php/full_stack_music/src/api/index.php?table=products';
+            <h3 className="text-white">Products</h3>
 
-        fetch(url)
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({
-                    db: responseJson
-                });
-                console.log(responseJson);
-            })
-    }
+            <div className="row text-white">
 
-    render() {
-        return (
-            <div class="container-fluid">
+                <div className="col-sm-2">
+                    <h3 >Categories</h3>
+                    <ul className="list-group">
+                        <button  className="list-group-item list-group-item-action" onClick={selectCategoria} value=''>All(12)</button>
+                        <button  className="list-group-item list-group-item-action" onClick={selectCategoria} value='heavymetal'>Heavy Metal(3)</button>
+                        <button  className="list-group-item list-group-item-action" onClick={selectCategoria} value='blackmetal'>Black Metal(1)</button>
+                        <button  className="list-group-item list-group-item-action" onClick={selectCategoria} value='thrashmetal'>Thrash Metal(4) </button>
+                        <button  className="list-group-item list-group-item-action" onClick={selectCategoria} value='progressivemetal'>Progressive Rock(1) </button>
+                        <button  className="list-group-item list-group-item-action" onClick={selectCategoria} value='folkmetal'>Folk Metal (1)</button>
+                        <button  className="list-group-item list-group-item-action" onClick={selectCategoria} value='hardrock'>Hard Rock (2)</button>
+                    </ul>
 
-                <h3 className="text-white">Products</h3>
+                </div>
 
-                <div className="row text-white">
+                <div className="col-sm-10">
 
-                    <div className="col-sm-3">
-                        <h3 >Categories</h3>
-                        <ul className="categories text-secondary">
-                            <li >All(12)</li>
-                            <li >Heavy Metal(3)</li>
-                            <li >Black Metal(1)</li>
-                            <li >Thrash Metal(4)</li>
-                            <li >Progressive Rock(1)</li>
-                            <li >Folk Metal (1)</li>
-                            <li >Hard Rock (2)</li>
-                        </ul>
+                    <div className="products_c">
+                        {produtos && produtos.map(row => { 
 
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="products_c">
-                            {this.state.db.map(row =><div className="box_products text-dark" key={row.idproducts} >
-                                <p>{row.categories}</p>
-                                <img src={row.images} width={182} />
-                                <p className="descripton text-dark">{row.descripton}</p>
-                                <p className="text-danger">{row.price} </p>
-                                <p className="price text-dark">{row.finalprice}</p>
-                             
-                            </div>)} 
-                           
-                        </div>
+                            if (categoria === row.categories) { 
+                                return (
+                                    <div className="box_products text-dark pro" id={row.categories} >
+                                        <img alt="" src={require(`${row.images}`).default} width={182} id="imagem" />
+                                        <p className="descripton text-dark paragrafo">{row.descripton}</p>
+                                        <p className="text-danger paragrafo">{row.price} </p>
+                                        <p className="price text-dark paragrafo">{row.finalprice}</p>
+
+                                    </div>)
+
+                            } else if (categoria == 0) {
+                                return (
+                                    <div className="box_products text-dark pro" id={row.categories} >
+                                        <img alt="" src={require(`${row.images}`).default} width={182} id="imagem" />
+                                        <p className="descripton text-dark paragrafo">{row.descripton}</p>
+                                        <p className="text-danger paragrafo">{row.price} </p>
+                                        <p className="price text-dark paragrafo">{row.finalprice}</p>
+
+                                    </div>
+                                )
+                            }
+                        }
+                        )}
                     </div>
                 </div>
             </div>
+        </div>
 
-        );
-    }
+    );
 }
-
-// export default function Produtos(){
-//     return(
-//         <div>
-//         {this.props.arrayProducts.map( row=> <div>{row.categories}</div>)}
-//     </div>
-//     );
-// }
-
-
-
-{/* <div className="box_products"  id={row.categories}>
-<img src={row.images} width={182} onClick={when_zoom(this)}/>
-<p className="descripton"> {row.descripton} </p>
-<p className="old_price"> {rows.price} </p>
-<p className="price"> {row.finalprice}</p>
-</div>  */}
-
-
-
-
-
-
-
-
-// export default function Products() {
-//     let dados_json = file_get_contents("http://localhost/php/full_stack_music/src/api2/Get_content.php?tables=products")
-//     let dados = json_decode(dados_json)
-
-//     const [products, setProducts] = useState("http://localhost/php/full_stack_music/src/api2/Get_content.php?tables=products");
-
-//     fetch("http://localhost/php/full_stack_music/src/api2/Get_content.php?tables=products")
-//     .then((response)=>response.json())
-//     .then((responseJson))
-//     return (
-//     <p>{products}</p>
-
-//     );
-// }
-
-
-{/* <ul>
-                    <li onMouseOver={this.spotlight.bind.this} onMouseOut={this.defocus.bind.this} onClick={this.show_allCategories.bind.this()}>All(12)</li>
-                    <li onMouseOver={this.spotlight.bind.this} onMouseOut={this.defocus.bind.this} onClick={this.this.show_categories.bind.this.bind.this('heavymetal')}>Heavy Metal(3)</li>
-                    <li onMouseOver={this.spotlight.bind.this} onMouseOut={this.defocus.bind.this} onClick={this.show_categories.bind.this('blackmetal')} id="blackmetal" >Black Metal(1)</li>
-                    <li onMouseOver={this.spotlight.bind.this} onMouseOut={this.defocus.bind.this} onClick={this.show_categories.bind.this('thrashmetal')}>Thrash Metal(4)</li>
-                    <li onMouseOver={this.spotlight.bind.this} onMouseOut={this.defocus.bind.this} onClick={this.show_categories.bind.this('progressivemetal')}>Progressive Rock(1)</li>
-                    <li onMouseOver={this.spotlight.bind.this} onMouseOut={this.defocus.bind.this} onClick={this.show_categories.bind.this('folkmetal')}>Folk Metal (1)</li>
-                    <li onMouseOver={this.spotlight.bind.this} onMouseOut={this.defocus.bind.this} onClick={this.show_categories.bind.this('hardrock')}>Hard Rock (2)</li> */}
